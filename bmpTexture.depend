@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1670864818 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\main.cpp
+1670945376 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -22,7 +22,7 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1670863098 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.cpp
+1670944588 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.cpp
 	<Windows.h>
 	<gl\GL.h>
 	<gl\GLU.h>

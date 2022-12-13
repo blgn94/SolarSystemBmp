@@ -8,15 +8,15 @@
 
 int windowHeight = 900, windowWidth = 900;
 int num_texture = 1;
-int id_sun, id_earth, id_jupiter, id_mercury, id_venus, id_mars, id_saturn, id_uranus, id_neptune, id_pluto, id_galaxy;
-float ySun=0.0f, yMercury=0.0f, yVenus=0.0f, yEarth = 0.0f, yMars=0.0f, yJupiter = 0.0f, ySaturn=0.0f, yUranus=0.0f, yNeptune=0.0f, yPluto=0.0f;
-float mercuryVelocity=0.0f, venusVelocity=0.0f, earthVelocity=0.0f, marsVelocity=0.0f, jupiterVelocity=0.0f, saturnVelocity=0.0f, uranusVelocity=0.0f, neptuneVelocity=0.0f, plutoVelocity=0.0f;
+int id_sun, id_earth, id_jupiter, id_mercury, id_venus, id_mars, id_saturn, id_uranus, id_neptune, id_pluto, id_galaxy, id_moon;
+float ySun=0.0f, yMercury=0.0f, yVenus=0.0f, yEarth = 0.0f, yMars=0.0f, yJupiter = 0.0f, ySaturn=0.0f, yUranus=0.0f, yNeptune=0.0f, yPluto=0.0f, yMoon=0.0f;
+float mercuryVelocity=0.0f, venusVelocity=0.0f, earthVelocity=0.0f, marsVelocity=0.0f, jupiterVelocity=0.0f, saturnVelocity=0.0f, uranusVelocity=0.0f, neptuneVelocity=0.0f, plutoVelocity=0.0f, moonVelocity=0.0f;
 float earthRadius = 0.3959, sunRadius=earthRadius*110;
 
 float rotateX, rotateY, translateX = 0, translateY = 0, translateZ = 0;
 float orthoX=400, orthoY=400;
 
-/*const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
+const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
 const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_position[] = { 0.0f, 0.0f, 0.0f, 0.1f };
@@ -24,8 +24,7 @@ const GLfloat light_position[] = { 0.0f, 0.0f, 0.0f, 0.1f };
 const GLfloat mat_ambient[]    = { 0.247725f, 0.1995f, 0.0745f, 1.0f };
 const GLfloat mat_diffuse[]    = { 0.75164f, 0.60648f, 0.22648f, 1.0f };
 const GLfloat mat_specular[]   = { 0.628281f, 0.555802f, 0.366065f, 1.0f };
-const GLfloat high_shininess[] = { 100.f };*/
-const GLfloat light_position[] = { 0.0f, 0.0f, 0.0f, 0.1f };
+const GLfloat high_shininess[] = { 100.f };
 
 Camera camera;
 
@@ -100,27 +99,22 @@ void SetupRC(){
     glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);*/
+
     glEnable(GL_LIGHTING);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_DEPTH_TEST);
 	glLoadIdentity();
-	GLfloat matSpecular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat matAmbience[] = { 0.3, 0.3, 0.3, 1.0 };
-	GLfloat matShininess[] = { 20.0 };
+
 	glClearColor (0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_SMOOTH);
 
-	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpecular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, matShininess);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, matAmbience);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 
-	GLfloat lightAmbient[] = { 0.3, 0.3, 0.3, 1.0 };
-	GLfloat lightDiffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat lightSpecular[] = { 1.0, 1.0, 1.0, 1.0 };
-
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -130,8 +124,8 @@ void SetupRC(){
 void timer(int t) {
     yEarth += 3.6f;
     ySun = yEarth/27.0f;
-    yMercury = yEarth/58.6;
-    yVenus = yEarth/243.0;
+    yMercury = yEarth/58.6*2;
+    yVenus = yEarth/243.0*8;
     yMars = yEarth/1.03;
     yJupiter = yEarth/0.41f;
     ySaturn = yEarth/0.45f;
@@ -139,15 +133,16 @@ void timer(int t) {
     yNeptune = yEarth/0.67f;
     yPluto = yEarth/6.39f;
 
+    earthVelocity += 0.0986f;
     mercuryVelocity = earthVelocity/0.25;
     venusVelocity = earthVelocity/0.58;
-    earthVelocity += 0.0986f;
     marsVelocity = earthVelocity/2;
     jupiterVelocity = earthVelocity/12;
     saturnVelocity = earthVelocity/29.5;
     uranusVelocity = earthVelocity/84;
     neptuneVelocity = earthVelocity/165;
     plutoVelocity = earthVelocity/248;
+    moonVelocity = earthVelocity/20;
 
     glutTimerFunc(10, timer, 0);
     glutPostRedisplay();
@@ -169,7 +164,7 @@ void drawGalaxy(void) {
     GLUquadricObj* galaxy = gluNewQuadric();
 	gluQuadricTexture(galaxy, true);
 	gluQuadricNormals(galaxy, GLU_SMOOTH);
-	gluSphere(galaxy, 100, 30, 30);
+	gluSphere(galaxy, 400, 40, 40);
 }
 
 static void display(void) {
@@ -192,13 +187,15 @@ static void display(void) {
 
     camera.transformOrientation();
     glBindTexture(GL_TEXTURE_2D, id_galaxy);
-	drawGalaxy();
+    glDisable(GL_LIGHTING);
+        drawGalaxy();
+    glEnable(GL_LIGHTING);
     camera.transformTranslation();
 
     glPushMatrix();
         glRotatef(90, 1, 0, 0);
 
-        GLUquadricObj *sun, *mercury, *venus, *earth, *mars, *jupiter, *saturn, *uranus, *neptune, *pluto;
+        GLUquadricObj *sun, *mercury, *venus, *earth, *mars, *jupiter, *saturn, *uranus, *neptune, *pluto, *moon;
     /////////////////////////////////////////////////////////////////////////////////////////
         glPushMatrix();
             glRotatef(mercuryVelocity, 0.0f, 1.0f, 0.0f);
@@ -241,6 +238,21 @@ static void display(void) {
             gluQuadricTexture(earth, true);
             gluQuadricNormals(earth, GLU_SMOOTH);
             gluSphere(earth, earthRadius, 30, 30);
+        ///---------------------------Moon----------------------------------
+            drawOrbit(earthRadius+0.5);
+
+            glRotatef(moonVelocity, 0.0f, 1.0f, 0.0f);
+
+            glTranslatef(earthRadius+0.5, 0, 0);
+            glRotatef(90, 1, 0, 0);
+            glRotatef(yMoon, 0, 0, -1);
+
+            glBindTexture(GL_TEXTURE_2D, id_moon);
+            moon = gluNewQuadric();
+            gluQuadricTexture(moon, true);
+            gluQuadricNormals(moon, GLU_SMOOTH);
+            gluSphere(moon, earthRadius/3, 30, 30);
+
         glPopMatrix();
     /////////////////////////////////////////////////////////////////////////////////////////
         glPushMatrix();
@@ -367,11 +379,10 @@ static void display(void) {
     /////////////////////////////////////////////////////////////////////////////////////////
     glPopMatrix();
 
-    /*glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0.0, (GLdouble)windowWidth, (GLdouble)windowHeight, 0.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();*/
+    controls.yawLeft = false;
+	controls.yawRight = false;
+	controls.pitchDown = false;
+	controls.pitchUp = false;
 
     glutSwapBuffers();
 }
@@ -399,10 +410,10 @@ void keyDown(unsigned char key, int x, int y) {
             //controls.rollLeft = true;
             break;
         case 'i':
-            controls.pitchDown = true;
+            controls.pitchUp = true;
             break;
         case 'k':
-            controls.pitchUp = true;
+            controls.pitchDown = true;
             break;
         /*case 'q':
             controls.yawLeft = true;
@@ -410,6 +421,12 @@ void keyDown(unsigned char key, int x, int y) {
         case 'e':
             controls.yawRight = true;
             break;*/
+        case ',':
+            camera.slowDown();
+            break;
+        case '.':
+            camera.speedUp();
+            break;
         }
 }
 
@@ -436,10 +453,10 @@ void keyUp(unsigned char key, int x, int y) {
             //controls.rollLeft = false;
             break;
         case 'i':
-            controls.pitchDown = false;
+            controls.pitchUp = false;
             break;
         case 'k':
-            controls.pitchUp = false;
+            controls.pitchDown = false;
             break;
         /*case 'q':
             controls.yawLeft = false;
@@ -453,19 +470,20 @@ void keyUp(unsigned char key, int x, int y) {
 void init() {
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glOrtho(-400, 400, -400, 400, -90000, 90000);
+    glOrtho(-400, 400, -400, 400, -4000, 4000);
     glEnable(GL_TEXTURE_2D);
-    id_sun = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\sun.bmp");
-    id_mercury = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mercury.bmp");
-    id_venus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\venus.bmp");
+    id_sun = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\sun1.bmp");
+    id_mercury = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mercury1.bmp");
+    id_venus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\venus1.bmp");
     id_earth = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\earth1.bmp");
-    id_mars = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mars.bmp");
-    id_jupiter = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\jupiter.bmp");
-    id_saturn = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\saturn.bmp");
-    id_uranus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\uranus.bmp");
-    id_neptune = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\neptune.bmp");
+    id_mars = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mars1.bmp");
+    id_jupiter = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\jupiter1.bmp");
+    id_saturn = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\saturn1.bmp");
+    id_uranus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\uranus1.bmp");
+    id_neptune = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\neptune1.bmp");
     id_pluto = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\pluto.bmp");
     id_galaxy = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\galaxy.bmp");
+    id_moon = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\moon.bmp");
 
     controls.forward = false;
 	controls.backward = false;
@@ -477,6 +495,34 @@ void init() {
 	controls.pitchUp = false;
 	controls.yawLeft = false;
 	controls.yawRight = false;
+}
+
+int mouseX = 600, mouseY = 350;
+double yLimit = 350;
+
+void Mouse(int x, int y) {
+    if(x < mouseX) {
+        controls.yawLeft = true;
+    }
+    if(x > mouseX) {
+        controls.yawRight = true;
+    }
+    if(y > mouseY) {
+        if(yLimit > 0) {
+            controls.pitchDown = true;
+            yLimit -= 0.7;
+        }
+    }
+    if(y < mouseY) {
+        if(yLimit < 700) {
+            controls.pitchUp = true;
+            yLimit += 0.7;
+        }
+    }
+    glutWarpPointer(1200 / 2, 700 / 2);
+    //mouseX = x;
+    //mouseY = y;
+    glutPostRedisplay();
 }
 
 int main(int argc, char *argv[]) {
@@ -492,10 +538,11 @@ int main(int argc, char *argv[]) {
 
     glutDisplayFunc(display);
     glutTimerFunc(0, timer, 0);
-    //glutKeyboardFunc(keyboard);
 
     glutKeyboardFunc(keyDown);
 	glutKeyboardUpFunc(keyUp);
+
+	glutPassiveMotionFunc(Mouse);
 
     glutMainLoop();
 

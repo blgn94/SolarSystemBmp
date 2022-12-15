@@ -146,7 +146,7 @@ void timer(int t) {
     uranusVelocity = earthVelocity/84;
     neptuneVelocity = earthVelocity/165;
     plutoVelocity = earthVelocity/248;
-    moonVelocity = earthVelocity/20;
+    moonVelocity = earthVelocity/15;
 
     glutTimerFunc(10, timer, 0);
     glutPostRedisplay();
@@ -246,7 +246,7 @@ static void display(void) {
         ///---------------------------Moon----------------------------------
             drawOrbit(earthRadius+0.5);
 
-            glRotatef(moonVelocity, 0.0f, 1.0f, 0.0f);
+            glRotatef(moonVelocity, 1.0f, 0.0f, 0.0f);
 
             glTranslatef(earthRadius+0.5, 0, 0);
             glRotatef(90, 1, 0, 0);
@@ -477,20 +477,20 @@ void init() {
     glMatrixMode(GL_MODELVIEW);
     glOrtho(-400, 400, -400, 400, -4000, 4000);
     glEnable(GL_TEXTURE_2D);
-//    id_sun = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\sun1.bmp");
-//    id_mercury = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mercury1.bmp");
-//    id_venus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\venus1.bmp");
-//    id_earth = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\earth1.bmp");
-//    id_mars = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mars1.bmp");
-//    id_jupiter = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\jupiter1.bmp");
-//    id_saturn = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\saturn1.bmp");
-//    id_uranus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\uranus1.bmp");
-//    id_neptune = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\neptune1.bmp");
-//    id_pluto = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\pluto.bmp");
-//    id_galaxy = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\galaxy.bmp");
-//    id_moon = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\moon.bmp");
+    id_sun = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\sun1.bmp");
+    id_mercury = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mercury1.bmp");
+    id_venus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\venus1.bmp");
+    id_earth = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\earth1.bmp");
+    id_mars = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\mars1.bmp");
+    id_jupiter = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\jupiter1.bmp");
+    id_saturn = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\saturn1.bmp");
+    id_uranus = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\uranus1.bmp");
+    id_neptune = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\neptune1.bmp");
+    id_pluto = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\pluto.bmp");
+    id_galaxy = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\galaxy.bmp");
+    id_moon = LoadBitmap("C:\\Users\\User\\OneDrive - National University of Mongolia\\Desktop\\MUIS\\3-r kurs\\1) Namriin uliral\\Computer graphics\\laboratories\\bmpTexture\\moon.bmp");
 
-    id_sun = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//sun1.bmp");
+/*    id_sun = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//sun1.bmp");
     id_mercury = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//mercury1.bmp");
     id_venus = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//venus1.bmp");
     id_earth = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//earth1.bmp");
@@ -501,7 +501,7 @@ void init() {
     id_neptune = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//neptune1.bmp");
     id_pluto = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//pluto.bmp");
     id_galaxy = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//galaxy.bmp");
-    id_moon = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//moon.bmp");
+    id_moon = LoadBitmap("C://Dakie//NUM's Lessons//3rd course Autumn//Computer Graphs//SolarSystemBmp//moon.bmp"); */
 
     controls.forward = false;
 	controls.backward = false;

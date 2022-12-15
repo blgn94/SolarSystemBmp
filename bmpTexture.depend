@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1670945376 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\main.cpp
+1671116540 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -22,14 +22,15 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1670944588 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.cpp
+1671116250 source:c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.cpp
 	<Windows.h>
 	<gl\GL.h>
 	<gl\GLU.h>
 	<cmath>
+	<iostream>
 	"camera.h"
 
-1670861440 c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.h
+1671116250 c:\users\user\onedrive - national university of mongolia\desktop\muis\3-r kurs\1) namriin uliral\computer graphics\laboratories\bmptexture\camera.h
 
 1671084403 source:c:\dakie\num's lessons\3rd course autumn\computer graphs\solarsystembmp\camera.cpp
 	<Windows.h>

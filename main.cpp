@@ -6,6 +6,10 @@
 #include <math.h>
 #include "camera.h"
 
+
+int mouseMoveX = 0;
+int mouseMoveY = 0;
+
 int windowHeight = 900, windowWidth = 900;
 int num_texture = 1;
 int id_sun, id_earth, id_jupiter, id_mercury, id_venus, id_mars, id_saturn, id_uranus, id_neptune, id_pluto, id_galaxy, id_moon;
@@ -168,11 +172,12 @@ void drawGalaxy(void) {
 }
 
 static void display(void) {
-    if(controls.forward) camera.forward();		if(controls.backward) camera.backward();
+	if(controls.forward) camera.forward();		if(controls.backward) camera.backward();
 	if(controls.left) camera.left();			if(controls.right) camera.right();
-	if(controls.yawLeft) camera.yawLeft();		if(controls.yawRight) camera.yawRight();
-	if(controls.rollLeft) camera.rollLeft();	if(controls.rollRight) camera.rollRight();
-	if(controls.pitchUp) camera.pitchUp();		if(controls.pitchDown) camera.pitchDown();
+	//Mouse Movements
+	if(controls.yawLeft) camera.yawLeft(mouseMoveX);		if(controls.yawRight) camera.yawRight(mouseMoveX);
+	//if(controls.rollLeft) camera.rollLeft();	if(controls.rollRight) camera.rollRight();
+	if(controls.pitchUp) camera.pitchUp(mouseMoveY);		if(controls.pitchDown) camera.pitchDown(mouseMoveY);
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_COLOR_MATERIAL);
@@ -514,6 +519,8 @@ int mouseX = 600, mouseY = 350;
 double yLimit = 350;
 
 void Mouse(int x, int y) {
+    mouseMoveX = x - mouseX;
+    mouseMoveY = y - mouseY;
     if(x < mouseX) {
         controls.yawLeft = true;
     }
@@ -543,8 +550,8 @@ int main(int argc, char *argv[]) {
     glutInitWindowSize(windowWidth, windowHeight);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-
     glutCreateWindow("BMP Texture Solar System");
+    glutSetCursor(GLUT_CURSOR_NONE);
 
     init();
     SetupRC();
